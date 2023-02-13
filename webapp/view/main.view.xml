@@ -30,18 +30,11 @@
 				</l:VerticalLayout>
 			</FlexBox>
 
-			<FlexBox id="box_container_repos_orgs" wrap="Wrap" direction="Row" alignItems="Start" justifyContent="SpaceAround">
-				<l:VerticalLayout id="repos">
-					<List items="{oModelRepos>/data}" headerText="Lista de repositorios" id="reposuser">
-						<StandardListItem id="rep" title="{oModelRepos>name}" />
-					</List>
-				</l:VerticalLayout>
-				<l:VerticalLayout id="orgs">
-					<List items="{oModelOrgs>/data}" headerText="Lista de organizaciones" id="orgsuser">
-						<StandardListItem id="org" title="{oModelOrgs>name}" />
-					</List>
-				</l:VerticalLayout>
+			<FlexBox  id="box_container_repos_orgs" wrap="Wrap" direction="Row" alignItems="Start" justifyContent="SpaceAround">
+				<Button visible="{oModel>/hasContent}" id="btnRepos" text="Ver repositorios" press=".onNavigateToRepos"/>
+				<Button visible="{/hasContent}" id="btnOrgs"  text="Ver organizaciones" press=".onNavigateToOrgs"/>
 			</FlexBox>
+
         </content>
 
 

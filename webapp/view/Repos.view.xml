@@ -1,0 +1,15 @@
+<mvc:View
+    controllerName="com.sap.ui5demorest.controller.Repos"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout">
+  <Page id="pageRepos" title="Repositorios">
+    <content>
+        <l:VerticalLayout id="repos">
+            <List items="{oModelRepos>/data}" headerText="Lista de repositorios" id="reposuser">
+                <StandardListItem id="rep" title="{oModelRepos>name}" />
+            </List>
+        </l:VerticalLayout>
+    </content>
+  </Page>
+</mvc:View>

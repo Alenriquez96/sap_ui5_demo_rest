@@ -98,6 +98,20 @@
                     "target": [
                         "Targetmain"
                     ]
+                },
+                {
+                    "name": "RouteRepos",
+                    "pattern": "repos/{username}",
+                    "target":[
+                        "TargetRepos"
+                    ]
+                },
+                {
+                    "name": "RouteOrgs",
+                    "pattern": "orgs/{username}",
+                    "target":[
+                        "TargetOrgs"
+                    ]
                 }
             ],
             "targets": {
@@ -107,6 +121,14 @@
                     "clearControlAggregation": false,
                     "viewId": "main",
                     "viewName": "main"
+                },
+                "TargetRepos":{
+                    "viewType": "XML",
+                    "viewName": "Repos"
+                },
+                "TargetOrgs":{
+                    "viewType": "XML",
+                    "viewName": "Orgs"
                 }
             }
         },

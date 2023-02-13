@@ -1,0 +1,17 @@
+<mvc:View
+    controllerName="com.sap.ui5demorest.controller.Orgs"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout">
+  <Page id="pageOrgs" title="Organizaciones">
+    <content>
+        <l:VerticalLayout id="orgs">
+            <List items="{oModelOrgs>/data}" headerText="Lista de organizaciones" id="orgsuser">
+                <StandardListItem id="org" title="{oModelOrgs>id}" />
+                <StandardListItem id="desc" title="{oModelOrgs>description}" />
+            </List>
+        </l:VerticalLayout>
+
+    </content>
+  </Page>
+</mvc:View>

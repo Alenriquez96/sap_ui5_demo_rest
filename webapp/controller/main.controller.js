@@ -14,23 +14,39 @@ sap.ui.define([
 
             onInit: function () {
                 console.log("Entra");
-                var oModel = new JSONModel({count: 0});
-                this.getView().setModel(oModel);
-
+                var oModelCount = new JSONModel({count: 0});
+                this.getView().setModel(oModelCount);
             }, 
-            onChange: function (oEvent) {
-              let oModel = this.getView().getModel();
-                oModel.setProperty("/count", oEvent.getParameter("value").length);
+            _getRouter: function () {
+              return sap.ui.core.UIComponent.getRouterFor(this);
             },
+            onChange: function (oEvent) {
+              let oModelCount = this.getView().getModel();
+                oModelCount.setProperty("/count", oEvent.getParameter("value").length);
+            },
+            _getTextAreaValue : function () {
+              return this.byId("_IDGenTextArea1").getValue()
+            },
+            onNavigateToRepos: function () {
+              this._getRouter().navTo("RouteRepos", {
+                username: this._getTextAreaValue()
+              });
+              
+              // sap.ui.require([
+              //   "sap/m/library"
+              // ], sapMLib => sapMLib.URLHelper.redirect("#/repos", /*new window*/false));
+            },
+            onNavigateToOrgs: function () {
+              this._getRouter().navTo("RouteOrgs", {
+                username: this._getTextAreaValue()
+              });
+            }
+            ,
             handleApiCall: function() {
                 let oModel = new JSONModel();
-                let oModelRepos = new JSONModel({data:[{name:"", description:""}]});
-                let oModelOrgs = new JSONModel();
-                let oTextArea = this.byId("_IDGenTextArea1");
-                let sValue = oTextArea.getValue();
+                let sValue = this._getTextAreaValue()
           
                 oModel.setData({hasContent:false});
-
 
                 jQuery.ajax({
                   type: "GET",
@@ -47,36 +63,7 @@ sap.ui.define([
                   }
                 });
 
-                jQuery.ajax({
-                  type: "GET",
-                  url: "https://port8080-workspaces-ws-zr8ts.us10.trial.applicationstudio.cloud.sap/github_api/users/" + sValue  + "/repos",
-                  dataType: "json",
-                  success: function(data) {
-                    oModelRepos.setData({data});
-                  },
-                  error: function(error) {
-                    // Código a ejecutarse en caso de error
-
-                  }
-                });
-
-                jQuery.ajax({
-                  type: "GET",
-                  url: "https://port8080-workspaces-ws-zr8ts.us10.trial.applicationstudio.cloud.sap/github_api/users/" + sValue  + "/orgs",
-                  dataType: "json",
-                  success: function(data) {
-                    oModelOrgs.setData({data});
-                  },
-                  error: function(error) {
-                    // Código a ejecutarse en caso de error
-                  }
-                })
-
                 this.getView().setModel(oModel, "oModel");
-                this.getView().setModel(oModelRepos, "oModelRepos");
-                this.getView().setModel(oModelOrgs, "oModelOrgs");
-                console.log(oModelRepos);
-                console.log(oModelOrgs);
             }
         });
     });

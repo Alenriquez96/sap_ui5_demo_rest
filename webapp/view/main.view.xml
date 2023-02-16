@@ -31,8 +31,8 @@
 			</FlexBox>
 
 			<FlexBox  id="box_container_repos_orgs" wrap="Wrap" direction="Row" alignItems="Start" justifyContent="SpaceAround">
-				<Button visible="{oModel>/hasContent}" id="btnRepos" text="Ver repositorios" press=".onNavigateToRepos"/>
-				<Button visible="{/hasContent}" id="btnOrgs"  text="Ver organizaciones" press=".onNavigateToOrgs"/>
+				<Button visible="false" id="btnRepos" text="Ver repositorios" press=".onNavigateToRepos"/>
+				<Button visible="false" id="btnOrgs"  text="Ver organizaciones" press=".onNavigateToOrgs"/>
 			</FlexBox>
 
         </content>

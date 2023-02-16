@@ -21,6 +21,7 @@ sap.ui.define([
               return sap.ui.core.UIComponent.getRouterFor(this);
             },
             onChange: function (oEvent) {
+
               let oModelCount = this.getView().getModel();
                 oModelCount.setProperty("/count", oEvent.getParameter("value").length);
             },
@@ -44,9 +45,14 @@ sap.ui.define([
             ,
             handleApiCall: function() {
                 let oModel = new JSONModel();
-                let sValue = this._getTextAreaValue()
-          
-                oModel.setData({hasContent:false});
+                let sValue = this._getTextAreaValue();
+                let success = false;
+                let that = this; //método guarro
+
+                // const f = () => fetch("https://port8080-workspaces-ws-zr8ts.us10.trial.applicationstudio.cloud.sap/github_api/users/" + sValue)
+                // .then(response=>response.json()
+                // .then(data => console.log(data)))
+                // f();
 
                 jQuery.ajax({
                   type: "GET",
@@ -54,15 +60,19 @@ sap.ui.define([
                   dataType: "json",
                   success: function(data) {
                     oModel.setData(data);
-                    oModel.oData.hasContent = true;
-                  },
+                    this.getView().byId("btnRepos").setVisible(true);
+                    this.getView().byId("btnOrgs").setVisible(true);
+                    success = true;
+
+                  }.bind(this),
                   error: function(error) {
                     // Código a ejecutarse en caso de error
-                    oModel.setData({hasContent:false});
-
-                  }
+                    this.getView().byId("btnRepos").setVisible(false)
+                    this.getView().byId("btnOrgs").setVisible(false)
+                  }.bind(this)
                 });
 
+                // if(success===true) this.getView().byId("btnRepos").setVisible(true)
                 this.getView().setModel(oModel, "oModel");
             }
         });
